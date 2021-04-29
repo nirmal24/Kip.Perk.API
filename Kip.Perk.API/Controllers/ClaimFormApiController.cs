@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kip.Perk.API.DataContext;
+using Kip.Perk.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,34 +9,38 @@ using System.Web.Http;
 
 namespace Kip.Perk.API.Controllers
 {
+    [RoutePrefix("api/claimform")]
     [Authorize]
     public class ClaimFormApiController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        [HttpPost]
+        [Route("submitclaim")]
+        public HttpResponseMessage SubmitClaim(ClaimsModel model)
         {
-            return new string[] { "value1", "value2" };
-        }
+            using (var db = new Entities())
+            {
+                var claimId = Guid.NewGuid().ToString();
+                db.UserClaims.Add(
+                    new UserClaim()
+                    {
+                        ClaimDate = model.ClaimDate,
+                        ClaimId = claimId,
+                        PointsToClaim = model.PointsToClaim,
+                        Status = (int)VerificationStatusEnum.Pending,
+                        TeamId = model.ClaimFor,
+                        UserId = model.EmpId,
+                        Description=model.Description,
+                    });
+                model.Witnesses.ForEach(x => {
+                    db.Witnesses.Add(new Witness() {
+                        ClaimId = claimId,
+                        WitnessId = x.EmpId
+                    });
+                });
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
+                db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.OK, model);
+            }
         }
     }
 }
