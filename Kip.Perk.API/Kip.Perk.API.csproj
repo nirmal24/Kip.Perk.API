@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -211,6 +212,48 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ClaimFormApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataContext\AspNetRole.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AspNetUser.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AspNetUserClaim.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AspNetUserLogin.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AssociatesUser.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\C__MigrationHistory.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\KipPerk.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KipPerk.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\KipPerk.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\KipPerk.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KipPerk.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\UserClaim.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\UserTeam.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Witness.cs">
+      <DependentUpon>KipPerk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -228,6 +271,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DataContext\KipPerk.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KipPerk.edmx</DependentUpon>
+      <LastGenOutput>KipPerk.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataContext\KipPerk.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KipPerk.edmx</DependentUpon>
+      <LastGenOutput>KipPerk.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -252,6 +305,13 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="DataContext\KipPerk.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KipPerk.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataContext\KipPerk.edmx.diagram">
+      <DependentUpon>KipPerk.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\KipPerkAPI20210429235920 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -310,6 +370,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
