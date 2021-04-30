@@ -17,6 +17,7 @@ using Kip.Perk.API.Models;
 using Kip.Perk.API.Providers;
 using Kip.Perk.API.Results;
 using Kip.Perk.API.DataContext;
+using System.Linq;
 
 namespace Kip.Perk.API.Controllers
 {
@@ -354,6 +355,33 @@ namespace Kip.Perk.API.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("getuserinfo")]
+        public UserModel GetUserByEmail(string email)
+        {
+            using (var db = new Entities())
+            {
+                var userdetails = UserManager.FindByEmail(email);
+                var user = (from au in db.AssociatesUsers.AsQueryable()
+                            join u in db.AspNetUsers.AsQueryable() on au.UserId equals u.Id
+                            where u.Id == userdetails.Id
+                            select new UserModel()
+                            {
+                                Email = u.Email,
+                                EmpId = u.Id,
+                                FirstName = au.FirstName,
+                                LastName = au.LastName,
+                                ImageURL = au.ImageUrl,
+                                TotalPoints = au.TotalPoints,
+                            }).FirstOrDefault();
+                if (user != null)
+                {
+                    user.Claims = db.UserTeams.Where(u => u.UserId == userdetails.Id).Select(u => u.TeamId).ToList());
+                }
+                return user;
+            }
         }
 
         // POST api/Account/RegisterExternal
