@@ -338,20 +338,20 @@ namespace Kip.Perk.API.Controllers
                 return GetErrorResult(result);
             }
 
-            using (var db = new Entities())
-            {
-                var userdetails = UserManager.FindByEmail(model.Email);
-                db.AssociatesUsers.Add(new AssociatesUser()
-                {
-                    UserId = userdetails.Id,
-                    CanVerifyClaims = model.CanVerifyClaims,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    ImageUrl = model.ImageURL,
-                    TotalPoints = model.TotalPoints
-                });
-                db.SaveChanges();
-            }
+            //using (var db = new Entities())
+            //{
+            //    var userdetails = UserManager.FindByEmail(model.Email);
+            //    db.AssociatesUsers.Add(new AssociatesUser()
+            //    {
+            //        UserId = userdetails.Id,
+            //        CanVerifyClaims = model.CanVerifyClaims,
+            //        FirstName = model.FirstName,
+            //        LastName = model.LastName,
+            //        ImageUrl = model.ImageURL,
+            //        TotalPoints = model.TotalPoints
+            //    });
+            //    db.SaveChanges();
+            //}
 
             return Ok();
         }
