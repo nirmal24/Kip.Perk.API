@@ -378,7 +378,7 @@ namespace Kip.Perk.API.Controllers
                             }).FirstOrDefault();
                 if (user != null)
                 {
-                    user.Claims = db.UserTeams.Where(u => u.UserId == userdetails.Id).Select(u => u.TeamId).ToList());
+                    user.Claims = db.UserTeams.Where(u => u.UserId == userdetails.Id).Select(u => u.TeamId).ToList();
                 }
                 return user;
             }
