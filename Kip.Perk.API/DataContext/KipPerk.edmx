@@ -78,16 +78,11 @@
           <Property Name="TotalPoints" Type="int" Nullable="false" />
           <Property Name="CanVerifyClaims" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.UserClaims' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserClaims">
           <Key>
-            <PropertyRef Name="ClaimId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="TeamId" />
-            <PropertyRef Name="PointsToClaim" />
-            <PropertyRef Name="Status" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClaimId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="TeamId" Type="int" Nullable="false" />
@@ -98,23 +93,19 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.UserClaims'
           <Property Name="DateOfVerification" Type="datetime" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.UserTeam' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserTeam">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="TeamId" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="TeamId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Witness">
           <Key>
-            <PropertyRef Name="ClaimId" />
-            <PropertyRef Name="WitnessId" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClaimId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="WitnessId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
@@ -182,31 +173,9 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssociatesUsers" EntityType="Self.AssociatesUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserClaims" EntityType="Self.UserClaims" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserClaims].[ClaimId] AS [ClaimId], 
-    [UserClaims].[UserId] AS [UserId], 
-    [UserClaims].[TeamId] AS [TeamId], 
-    [UserClaims].[PointsToClaim] AS [PointsToClaim], 
-    [UserClaims].[ClaimDate] AS [ClaimDate], 
-    [UserClaims].[Status] AS [Status], 
-    [UserClaims].[Remark] AS [Remark], 
-    [UserClaims].[DateOfVerification] AS [DateOfVerification], 
-    [UserClaims].[Description] AS [Description]
-    FROM [dbo].[UserClaims] AS [UserClaims]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="UserTeam" EntityType="Self.UserTeam" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserTeam].[UserId] AS [UserId], 
-    [UserTeam].[TeamId] AS [TeamId]
-    FROM [dbo].[UserTeam] AS [UserTeam]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Witness" EntityType="Self.Witness" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Witness].[ClaimId] AS [ClaimId], 
-    [Witness].[WitnessId] AS [WitnessId]
-    FROM [dbo].[Witness] AS [Witness]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="UserClaims" EntityType="Self.UserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTeam" EntityType="Self.UserTeam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Witness" EntityType="Self.Witness" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -287,40 +256,6 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="UserClaim">
-          <Key>
-            <PropertyRef Name="ClaimId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="TeamId" />
-            <PropertyRef Name="PointsToClaim" />
-            <PropertyRef Name="Status" />
-          </Key>
-          <Property Name="ClaimId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TeamId" Type="Int32" Nullable="false" />
-          <Property Name="PointsToClaim" Type="Int32" Nullable="false" />
-          <Property Name="ClaimDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfVerification" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="UserTeam">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="TeamId" />
-          </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TeamId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Witness">
-          <Key>
-            <PropertyRef Name="ClaimId" />
-            <PropertyRef Name="WitnessId" />
-          </Key>
-          <Property Name="ClaimId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="WitnessId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -359,9 +294,6 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
-          <EntitySet Name="UserTeams" EntityType="Self.UserTeam" />
-          <EntitySet Name="Witnesses" EntityType="Self.Witness" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -375,6 +307,9 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="AssociatesUsers" EntityType="Model.AssociatesUser" />
+          <EntitySet Name="UserClaims" EntityType="Model.UserClaim" />
+          <EntitySet Name="UserTeams" EntityType="Model.UserTeam" />
+          <EntitySet Name="Witnesses" EntityType="Model.Witness" />
         </EntityContainer>
         <EntityType Name="AssociatesUser">
           <Key>
@@ -387,6 +322,37 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
           <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TotalPoints" Type="Int32" Nullable="false" />
           <Property Name="CanVerifyClaims" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="PointsToClaim" Type="Int32" Nullable="false" />
+          <Property Name="ClaimDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfVerification" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserTeam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Witness">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -449,37 +415,6 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserClaims">
-            <EntityTypeMapping TypeName="Model.UserClaim">
-              <MappingFragment StoreEntitySet="UserClaims">
-                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
-                <ScalarProperty Name="PointsToClaim" ColumnName="PointsToClaim" />
-                <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="DateOfVerification" ColumnName="DateOfVerification" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserTeams">
-            <EntityTypeMapping TypeName="Model.UserTeam">
-              <MappingFragment StoreEntitySet="UserTeam">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Witnesses">
-            <EntityTypeMapping TypeName="Model.Witness">
-              <MappingFragment StoreEntitySet="Witness">
-                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
-                <ScalarProperty Name="WitnessId" ColumnName="WitnessId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -497,6 +432,40 @@ warning 6002: The table/view 'aspnet-Kip.Perk.API-20210429115316.dbo.Witness' do
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClaims">
+            <EntityTypeMapping TypeName="Model.UserClaim">
+              <MappingFragment StoreEntitySet="UserClaims">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateOfVerification" ColumnName="DateOfVerification" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+                <ScalarProperty Name="PointsToClaim" ColumnName="PointsToClaim" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTeams">
+            <EntityTypeMapping TypeName="Model.UserTeam">
+              <MappingFragment StoreEntitySet="UserTeam">
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Witnesses">
+            <EntityTypeMapping TypeName="Model.Witness">
+              <MappingFragment StoreEntitySet="Witness">
+                <ScalarProperty Name="WitnessId" ColumnName="WitnessId" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

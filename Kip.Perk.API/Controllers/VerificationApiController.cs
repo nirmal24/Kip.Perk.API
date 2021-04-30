@@ -63,7 +63,7 @@ namespace Kip.Perk.API.Controllers
         }
 
         [HttpPost]
-        [Route("submitclaim")]
+        [Route("updateclaimstatus")]
         public HttpResponseMessage UpdateClaimStatus(ClaimsModel model)
         {
             using (var db = new Entities())
@@ -76,7 +76,7 @@ namespace Kip.Perk.API.Controllers
                     claim.DateOfVerification = model.DateOfVerification;
                     if (model.Status==(int)VerificationStatusEnum.Approved)
                     {
-                        var user = db.AssociatesUsers.AsQueryable().Where(x => x.Id == claim.UserId).FirstOrDefault();
+                        var user = db.AssociatesUsers.AsQueryable().Where(x => x.UserId == claim.UserId).FirstOrDefault();
                         if (user!=null)
                         {
                             user.TotalPoints += claim.PointsToClaim;
@@ -86,33 +86,6 @@ namespace Kip.Perk.API.Controllers
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK, model);
             }
-        }
-
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
         }
     }
 }

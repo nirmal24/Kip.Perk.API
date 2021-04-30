@@ -40,4 +40,16 @@ namespace Kip.Perk.API.Models
         public int TotalPoints { get; set; }
         public List<int> Claims { get; set; }
     }
+
+    public class UserIdModel
+    {
+        public string EmpId { get; set; }
+    }
+
+    public class UserTeamModel
+    {
+        public List<int> Claims { get; set; }
+
+        public string Id { get; set; }
+    }
 }

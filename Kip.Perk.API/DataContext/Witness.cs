@@ -14,6 +14,7 @@ namespace Kip.Perk.API.DataContext
     
     public partial class Witness
     {
+        public int Id { get; set; }
         public string ClaimId { get; set; }
         public string WitnessId { get; set; }
     }

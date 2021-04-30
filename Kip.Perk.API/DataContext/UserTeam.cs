@@ -14,6 +14,7 @@ namespace Kip.Perk.API.DataContext
     
     public partial class UserTeam
     {
+        public int Id { get; set; }
         public string UserId { get; set; }
         public int TeamId { get; set; }
     }

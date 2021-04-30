@@ -65,13 +65,13 @@ namespace Kip.Perk.API.Controllers
 
         [HttpGet]
         [Route("getuserinfo")]
-        public UserModel GetUserInfo(string id)
+        public UserModel GetUserInfo(UserIdModel model)
         {
             using (var db = new Entities())
             {
                 var user = (from au in db.AssociatesUsers.AsQueryable()
                                join u in db.AspNetUsers.AsQueryable() on au.UserId equals u.Id
-                               where u.Id== id
+                               where u.Id== model.EmpId
                                select new UserModel()
                                {
                                    Email = u.Email,
@@ -83,7 +83,7 @@ namespace Kip.Perk.API.Controllers
                                }).FirstOrDefault();
                 if (user!=null)
                 {
-                    user.Claims = db.UserTeams.Where(u => u.UserId == id).Select(u => u.TeamId).ToList());
+                    user.Claims = db.UserTeams.Where(u => u.UserId == model.EmpId).Select(u => u.TeamId).ToList();
                 }
                 return user;
             }
@@ -91,14 +91,14 @@ namespace Kip.Perk.API.Controllers
 
         [HttpGet]
         [Route("getallteamsMembers")]
-        public List<UserModel> GetAllTeamsMembers(List<int> claims,string id)
+        public List<UserModel> GetAllTeamsMembers(UserTeamModel model)
         {
             using (var db=new Entities())
             {
                 var user = (from au in db.AssociatesUsers.AsQueryable()
                             join u in db.AspNetUsers.AsQueryable() on au.UserId equals u.Id
                             join t in db.UserTeams.AsQueryable() on u.Id equals t.UserId
-                            where u.Id != id &&  claims.Contains(t.TeamId)
+                            where u.Id != model.Id &&  model.Claims.Contains(t.TeamId)
                             select new UserModel()
                             {
                                 Email = u.Email,
