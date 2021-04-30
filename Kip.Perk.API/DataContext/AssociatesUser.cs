@@ -14,7 +14,7 @@ namespace Kip.Perk.API.DataContext
     
     public partial class AssociatesUser
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

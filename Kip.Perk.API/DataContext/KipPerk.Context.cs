@@ -30,9 +30,9 @@ namespace Kip.Perk.API.DataContext
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<AssociatesUser> AssociatesUsers { get; set; }
         public virtual DbSet<UserClaim> UserClaims { get; set; }
         public virtual DbSet<UserTeam> UserTeams { get; set; }
         public virtual DbSet<Witness> Witnesses { get; set; }
+        public virtual DbSet<AssociatesUser> AssociatesUsers { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -48,6 +49,13 @@ namespace Kip.Perk.API.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ImageURL { get; set; }
+        public int TotalPoints { get; set; }
+        public List<int> Claims { get; set; }
+        public bool CanVerifyClaims { get; set; }
     }
 
     public class RegisterExternalBindingModel

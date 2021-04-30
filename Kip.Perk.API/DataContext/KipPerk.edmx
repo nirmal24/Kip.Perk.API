@@ -70,7 +70,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -306,23 +306,11 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="AssociatesUsers" EntityType="Model.AssociatesUser" />
           <EntitySet Name="UserClaims" EntityType="Model.UserClaim" />
           <EntitySet Name="UserTeams" EntityType="Model.UserTeam" />
           <EntitySet Name="Witnesses" EntityType="Model.Witness" />
+          <EntitySet Name="AssociatesUsers" EntityType="Model.AssociatesUser" />
         </EntityContainer>
-        <EntityType Name="AssociatesUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TotalPoints" Type="Int32" Nullable="false" />
-          <Property Name="CanVerifyClaims" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="UserClaim">
           <Key>
             <PropertyRef Name="Id" />
@@ -353,6 +341,18 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClaimId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="WitnessId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AssociatesUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPoints" Type="Int32" Nullable="false" />
+          <Property Name="CanVerifyClaims" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -423,19 +423,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="AssociatesUsers">
-            <EntityTypeMapping TypeName="Model.AssociatesUser">
-              <MappingFragment StoreEntitySet="AssociatesUsers">
-                <ScalarProperty Name="CanVerifyClaims" ColumnName="CanVerifyClaims" />
-                <ScalarProperty Name="TotalPoints" ColumnName="TotalPoints" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserClaims">
             <EntityTypeMapping TypeName="Model.UserClaim">
               <MappingFragment StoreEntitySet="UserClaims">
@@ -466,6 +453,19 @@
               <MappingFragment StoreEntitySet="Witness">
                 <ScalarProperty Name="WitnessId" ColumnName="WitnessId" />
                 <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssociatesUsers">
+            <EntityTypeMapping TypeName="Model.AssociatesUser">
+              <MappingFragment StoreEntitySet="AssociatesUsers">
+                <ScalarProperty Name="CanVerifyClaims" ColumnName="CanVerifyClaims" />
+                <ScalarProperty Name="TotalPoints" ColumnName="TotalPoints" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

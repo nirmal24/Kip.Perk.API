@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using Kip.Perk.API.Models;
 using Kip.Perk.API.Providers;
 using Kip.Perk.API.Results;
+using Kip.Perk.API.DataContext;
 
 namespace Kip.Perk.API.Controllers
 {
@@ -335,6 +336,21 @@ namespace Kip.Perk.API.Controllers
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
+            }
+
+            using (var db = new Entities())
+            {
+                var userdetails = UserManager.FindByEmail(model.Email);
+                db.AssociatesUsers.Add(new AssociatesUser()
+                {
+                    UserId = userdetails.Id,
+                    CanVerifyClaims = model.CanVerifyClaims,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    ImageUrl = model.ImageURL,
+                    TotalPoints = model.TotalPoints
+                });
+                db.SaveChanges();
             }
 
             return Ok();
